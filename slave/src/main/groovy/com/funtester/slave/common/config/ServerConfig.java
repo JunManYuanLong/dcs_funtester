@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServerConfig implements ApplicationListener<WebServerInitializedEvent> {
 
-    private int serverPort;
+    public static int serverPort;
 
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
-        this.serverPort = event.getWebServer().getPort();
+        serverPort = event.getWebServer().getPort();
 
     }
+
 
 }

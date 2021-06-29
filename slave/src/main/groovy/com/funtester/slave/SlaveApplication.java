@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
@@ -14,12 +15,13 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @ServletComponentScan
 @EnableAsync
 @EnableTransactionManagement
+@EnableScheduling
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @EnableOpenApi
-public class FunTesterApplication {
+public class SlaveApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FunTesterApplication.class, args);
+        SpringApplication.run(SlaveApplication.class, args);
     }
 
 

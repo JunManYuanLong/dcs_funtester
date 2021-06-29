@@ -1,6 +1,8 @@
 package com.funtester.slave.common
 
+import com.funtester.frame.Output
 import com.funtester.frame.SourceCode
+import com.funtester.slave.common.config.ServerConfig
 import com.funtester.utils.Time
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -29,5 +31,10 @@ class Task {
         logger.info("定时任务执行完毕! 时间:{}", Time.getDate())
     }
 
+    @Scheduled(cron = "0/1 * * * * ?")
+    def mark() {
+        Output.output(ServerConfig.serverPort)
+        logger.info("d! 时间:{}", Time.getDate())
+    }
 
 }

@@ -1,4 +1,4 @@
 rootProject.name = 'dcs_funtester'
-include 'salve'
+include 'slave'
 include 'master'
 
