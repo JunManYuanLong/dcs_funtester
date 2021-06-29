@@ -2,6 +2,8 @@ package com.funtester.master.common.basedata;
 
 import com.funtester.utils.Time;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class NodeData {
@@ -13,8 +15,18 @@ public class NodeData {
 
     public static void register(String host, boolean s) {
         synchronized (status) {
-            status.put(host, true);
+            status.put(host, s);
             mark(host);
+        }
+    }
+
+    public static List<String> available() {
+        synchronized (status) {
+            List<String> availables = new ArrayList<>();
+            status.forEach((k, v) -> {
+                if (v) availables.add(k);
+            });
+            return availables;
         }
     }
 
