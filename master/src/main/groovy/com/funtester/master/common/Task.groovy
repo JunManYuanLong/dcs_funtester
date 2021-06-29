@@ -1,6 +1,6 @@
-package dcs.common
+package com.funtester.master.common
 
-import com.funtester.frame.SourceCode
+
 import com.funtester.utils.Time
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -18,14 +18,6 @@ class Task {
      */
     @Scheduled(cron = "0 0 0/3 * * ?")
     def saveRequestBean() {
-        def mark = SourceCode.getMark()
-        List<Integer> dels = []
-        FunData.results.keySet().each {
-            if (mark - it > 7200) {
-                dels << it
-            }
-        }
-        dels.each {FunData.results.remove(it)}
         logger.info("定时任务执行完毕! 时间:{}", Time.getDate())
     }
 

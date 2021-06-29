@@ -8,6 +8,6 @@ class DcsUtil extends FunLibrary{
 
     static boolean register() {
         String url = DcsConstant.MASTER_HOST + OR + ServerConfig.serverPort
-        false
+
     }
 }

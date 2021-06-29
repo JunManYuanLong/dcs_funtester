@@ -1,4 +1,4 @@
-package dcs.common.config
+package com.funtester.master.common.config
 
 import io.swagger.annotations.ApiOperation
 import org.springframework.context.annotation.Bean

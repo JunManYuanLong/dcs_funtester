@@ -1,4 +1,4 @@
-package dcs.common;
+package com.funtester.master.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

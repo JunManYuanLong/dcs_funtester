@@ -1,4 +1,4 @@
-package dcs.common.wapper;
+package com.funtester.master.common.wapper;
 
 import com.funtester.config.Constant;
 import org.slf4j.Logger;
