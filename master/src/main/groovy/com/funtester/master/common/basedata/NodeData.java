@@ -59,6 +59,9 @@ public class NodeData {
         }
     }
 
+    /**添加运行信息
+     * @param bean
+     */
     public static void addRunInfo(RunInfoBean bean) {
         synchronized (runInfos) {
             runInfos.computeIfAbsent(bean.getMark(), f->new ArrayList<RunInfoBean>());
