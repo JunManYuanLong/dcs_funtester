@@ -1,6 +1,6 @@
 package com.funtester.master.controller
 
-
+import com.funtester.base.bean.PerformanceResultBean
 import com.funtester.base.bean.Result
 import com.funtester.master.common.basedata.NodeData
 import com.funtester.master.common.bean.manager.RegisterBean
@@ -56,8 +56,16 @@ class Manager {
     @ApiImplicitParam(name = "bean", value = "注册接口请求对象", dataTypeClass = RegisterBean.class)
     @PostMapping(value = "/upinfo")
     public Result updateProgress(@Valid @RequestBody RunInfoBean bean) {
-
+        NodeData.addRunInfo(bean)
         Result.success()
     }
+
+    @ApiOperation(value = "更新测试结果")
+    @ApiImplicitParam(name = "bean", value = "测试结果对象", dataTypeClass = PerformanceResultBean.class)
+    @PostMapping(value = "/upresult/{mark}")
+    public Result updateResult(@PathVariable(value = "mark") int mark, @RequestBody PerformanceResultBean bean) {
+
+    }
+
 
 }

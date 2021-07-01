@@ -1,5 +1,6 @@
 package com.funtester.master.common.basedata;
 
+import com.funtester.base.bean.PerformanceResultBean;
 import com.funtester.master.common.bean.manager.RunInfoBean;
 import com.funtester.utils.Time;
 
@@ -12,6 +13,8 @@ public class NodeData {
     public static ConcurrentHashMap<String, Boolean> status = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<Integer, List<RunInfoBean>> runInfos = new ConcurrentHashMap<>();
+
+    public static ConcurrentHashMap<Integer, List<PerformanceResultBean>> results = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String, Long> time = new ConcurrentHashMap<>();
 
@@ -57,18 +60,40 @@ public class NodeData {
             });
             keys.forEach(f -> runInfos.remove(f));
         }
+        synchronized (results) {
+            List<Integer> keys = new ArrayList<>();
+            results.forEach((k, v) -> {
+                if (k - timeStamp > 3_3600_000) {
+                    keys.add(k);
+                }
+            });
+            keys.forEach(f -> results.remove(f));
+        }
     }
 
-    /**添加运行信息
+    /**
+     * 添加运行信息
+     *
      * @param bean
      */
     public static void addRunInfo(RunInfoBean bean) {
         synchronized (runInfos) {
-            runInfos.computeIfAbsent(bean.getMark(), f->new ArrayList<RunInfoBean>());
+            runInfos.computeIfAbsent(bean.getMark(), f -> new ArrayList<RunInfoBean>());
             runInfos.get(bean.getMark()).add(bean);
         }
     }
 
+    /**
+     * 添加运行信息
+     *
+     * @param bean
+     */
+    public static void addResult(int mark, PerformanceResultBean bean) {
+        synchronized (results) {
+            results.computeIfAbsent(mark, f -> new ArrayList<PerformanceResultBean>());
+            results.get(bean.getMark()).add(bean);
+        }
+    }
 
     public static String getHost(String host) {
         return "http://" + host;

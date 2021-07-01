@@ -1,6 +1,6 @@
 package com.funtester.master.common
 
-
+import com.funtester.master.common.basedata.NodeData
 import com.funtester.utils.Time
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -17,8 +17,9 @@ class Task {
      * @return
      */
     @Scheduled(cron = "0 0 0/3 * * ?")
-    def saveRequestBean() {
-        logger.info("定时任务执行完毕! 时间:{}", Time.getDate())
+    def cleanNodeInfo() {
+        NodeData.check()
+        logger.info("清除过期节点信息定时任务执行完毕! 时间:{}", Time.getDate())
     }
 
 

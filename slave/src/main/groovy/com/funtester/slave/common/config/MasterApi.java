@@ -10,4 +10,6 @@ public class MasterApi {
 
     public static String UPDATE_INFO = "/m/upinfo";
 
+    public static String UPDATE_RESULT = "/m/upresult/";
+
 }
