@@ -29,7 +29,7 @@ public class ConfigController {
 
     @ApiOperation(value = "获取远程host")
     @GetMapping(value = "/mh")
-    public Result getLocalHost(@PathVariable(value = "host") String host) {
+    public Result getLocalHost() {
         return Result.success(DcsConstant.MASTER_HOST);
     }
 

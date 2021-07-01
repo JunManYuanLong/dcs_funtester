@@ -13,7 +13,7 @@ class DcsManager extends DcsHttp {
 
     static void getIP() {
         String url = MasterApi.GET_IP
-        def response = getGetResponse(url)
+        def response = getGetResponse(url,new JSONObject())
         if (isRight(response)) {
             DcsConstant.LOCAL_HOST = "http://" + response.getString("data") + ":" + ServerConfig.serverPort
         }
@@ -28,7 +28,7 @@ class DcsManager extends DcsHttp {
     }
 
     static boolean update() {
-        String url = MasterApi.REGISTER
+        String url = MasterApi.UPDATE
         def params = new JSONObject()
         params.url = DcsConstant.LOCAL_HOST
         params.status = ThreadBase.needAbort()
@@ -41,13 +41,13 @@ class DcsManager extends DcsHttp {
         def params = new JSONObject()
         params.runinf = ThreadBase.progress.runInfo
         params.desc = ThreadBase.progress.taskDesc
-        def response = getPostResponse(url, params.toString())
+        def response = getPostResponse(url, params)
         isRight(response)
     }
 
     static boolean updateResult(PerformanceResultBean bean) {
         String url = MasterApi.UPDATE_RESULT + DcsConstant.TASK_MARK;
-        def response = getPostResponse(url, bean.toString())
+        def response = getPostResponse(url, bean)
         isRight(response)
     }
 

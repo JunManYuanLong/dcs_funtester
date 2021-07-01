@@ -43,7 +43,7 @@ public class RunController {
 
     @ApiOperation(value = "单个请求性能测试")
     @ApiImplicitParam(name = "reqsut", value = "单请求参数", dataTypeClass = HttpRequest.class)
-    @PostMapping(value = "/post")
+    @PostMapping(value = "/r")
     public Result tests(@Valid @RequestBody HttpRequest request) {
         if (!ThreadBase.needAbort()) return Result.fail();
         runService.runRequest(request);
@@ -52,10 +52,18 @@ public class RunController {
 
     @ApiOperation(value = "请求队列性能测试")
     @ApiImplicitParam(name = "reqsuts", value = "请求队列", dataTypeClass = HttpRequest2.class)
-    @PostMapping(value = "/post2")
+    @PostMapping(value = "/rs")
     public Result tests2(@Valid @RequestBody HttpRequest2 requests) {
         runService.runRequests(requests);
         return Result.success();
     }
+
+    @ApiOperation(value = "请求自带方法性能测试")
+    @ApiImplicitParam(name = "f", value = "请求队列", dataTypeClass = HttpRequest2.class)
+    @PostMapping(value = "/post2")
+    public Result tests3(@Valid @RequestBody HttpRequest2 requests) {
+        return Result.success();
+    }
+
 
 }

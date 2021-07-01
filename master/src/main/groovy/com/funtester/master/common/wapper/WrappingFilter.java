@@ -6,6 +6,7 @@ import com.funtester.base.constaint.ThreadBase;
 import com.funtester.config.Constant;
 import com.funtester.frame.Output;
 import com.funtester.slave.common.basedata.DcsConstant;
+import com.funtester.utils.DecodeEncode;
 import com.funtester.utils.Time;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpPost;
@@ -44,15 +45,8 @@ public class WrappingFilter implements Filter {
         RequestWrapper requestWrapper = new RequestWrapper(req);
         String url = requestWrapper.getRequestURI();
         String queryArgs = requestWrapper.getQueryString();
-//        queryArgs = queryArgs == null ? DecodeEncode.unicodeToString(requestWrapper.getBody()) : queryArgs;
-
+        queryArgs = queryArgs == null ? DecodeEncode.unicodeToString(requestWrapper.getBody()) : queryArgs;
         String headerKey = req.getHeader(DcsConstant.HEADER_KEY);
-//        if(StringUtils.isBlank(requestId)){
-//            resp.getWriter().write(Result.fail(CommonCode.REQUESTID_ERROR).toString());
-//            resp.flushBuffer();
-//            return;
-//        }
-//        MDC.put("id", requestId);
         String method = requestWrapper.getMethod();
         if (method.equalsIgnoreCase(HttpPost.METHOD_NAME)) {
             if (StringUtils.isEmpty(headerKey) || !headerKey.equalsIgnoreCase(DcsConstant.HEADER_VALUE)){
