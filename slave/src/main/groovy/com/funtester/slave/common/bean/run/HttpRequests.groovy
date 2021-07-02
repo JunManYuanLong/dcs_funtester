@@ -2,12 +2,14 @@ package com.funtester.slave.common.bean.run
 
 import com.alibaba.fastjson.JSONArray
 import com.funtester.base.bean.AbstractBean
+import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.Range
 
 import javax.validation.constraints.NotNull
 
+@ApiModel(value = "多请求测试参数")
 class HttpRequests extends AbstractBean implements Serializable {
 
     private static final long serialVersionUID = -324324327948379L;

@@ -1,9 +1,11 @@
 package com.funtester.master.common.bean.manager
 
 import com.funtester.base.bean.AbstractBean
+import io.swagger.annotations.ApiModel
 
 import javax.validation.constraints.Pattern
 
+@ApiModel(value = "slave节点注册bean")
 class RegisterBean extends AbstractBean {
 
     private static final long serialVersionUID = 3240850903838940L;
