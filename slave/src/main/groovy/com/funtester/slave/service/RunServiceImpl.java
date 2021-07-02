@@ -14,7 +14,7 @@ import com.funtester.slave.common.bean.run.GroovyScript;
 import com.funtester.slave.common.bean.run.HttpRequest;
 import com.funtester.slave.common.bean.run.HttpRequests;
 import com.funtester.slave.common.bean.run.LocalMethod;
-import com.funtester.slave.manager.DcsManager;
+import com.funtester.slave.manager.SlaveManager;
 import com.funtester.slave.service.impl.IRunService;
 import com.funtester.slave.template.ListRequestMode;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -42,7 +42,7 @@ public class RunServiceImpl implements IRunService {
             RequestThreadTimes task = new RequestThreadTimes(re, times);
             Concurrent concurrent = new Concurrent(task, thread, desc);
             PerformanceResultBean resultBean = concurrent.start();
-            DcsManager.updateResult(resultBean, request.getMark());
+            SlaveManager.updateResult(resultBean, request.getMark());
         }
     }
 
@@ -64,7 +64,7 @@ public class RunServiceImpl implements IRunService {
             ListRequestMode task = new ListRequestMode(res, times);
             Concurrent concurrent = new Concurrent(task, thread, desc);
             PerformanceResultBean resultBean = concurrent.start();
-            DcsManager.updateResult(resultBean, request.getMark());
+            SlaveManager.updateResult(resultBean, request.getMark());
         }
     }
 

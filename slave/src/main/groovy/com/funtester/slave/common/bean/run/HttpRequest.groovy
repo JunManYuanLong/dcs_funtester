@@ -14,6 +14,9 @@ class HttpRequest extends AbstractBean implements Serializable {
 
     private static final long serialVersionUID = 324324327948379L;
 
+    /**
+     * 单节点版本时候是标记,多节点版本是是执行节点数
+     */
     @NotNull
     Integer mark
 

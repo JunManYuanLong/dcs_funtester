@@ -4,7 +4,7 @@ import com.funtester.base.bean.Result;
 import com.funtester.base.constaint.ThreadBase;
 import com.funtester.config.Constant;
 import com.funtester.slave.common.basedata.DcsConstant;
-import com.funtester.slave.manager.DcsManager;
+import com.funtester.slave.manager.SlaveManager;
 import com.funtester.utils.Regex;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +37,7 @@ public class ConfigController {
     @ApiOperation(value = "获取状态,提供master验证使用")
     @GetMapping(value = "/s")
     public Result nodeStatus() {
-        return Result.success(DcsConstant.MASTER_HOST);
+        return Result.success(ThreadBase.needAbort());
     }
 
     @PostMapping(value = "/stop")
@@ -48,7 +48,7 @@ public class ConfigController {
 
     @GetMapping(value = "/ip")
     public Result refreshHost() {
-        DcsManager.getIP();
+        SlaveManager.getIP();
         return Result.success();
     }
 

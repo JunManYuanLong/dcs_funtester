@@ -1,6 +1,8 @@
 package com.funtester.master.common.basedata;
 
 import com.funtester.base.bean.PerformanceResultBean;
+import com.funtester.base.exception.FailException;
+import com.funtester.frame.SourceCode;
 import com.funtester.master.common.bean.manager.RunInfoBean;
 import com.funtester.utils.Time;
 
@@ -16,8 +18,9 @@ public class NodeData {
 
     public static ConcurrentHashMap<Integer, List<PerformanceResultBean>> results = new ConcurrentHashMap<>();
 
-    public static ConcurrentHashMap<String, Long> time = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, Integer> time = new ConcurrentHashMap<>();
 
+    public static ConcurrentHashMap<String, Integer> tasks = new ConcurrentHashMap<>();
 
     public static void register(String host, boolean s) {
         synchronized (status) {
@@ -37,15 +40,15 @@ public class NodeData {
     }
 
     private static void mark(String host) {
-        time.put(host, Time.getTimeStamp());
+        time.put(host, SourceCode.getMark());
     }
 
     public static void check() {
-        long timeStamp = Time.getTimeStamp();
+        int timeStamp = Time.getMark();
         List<String> hkeys = new ArrayList<>();
         synchronized (status) {
             time.forEach((k, v) -> {
-                if (timeStamp - v > 11_000) {
+                if (timeStamp - v > 12_000) {
                     hkeys.add(k);
                 }
             });
@@ -53,6 +56,12 @@ public class NodeData {
         }
         synchronized (runInfos) {
             hkeys.forEach(f -> runInfos.remove(f));
+        }
+        synchronized (tasks) {
+            hkeys.forEach(f -> tasks.remove(f));
+            tasks.forEach((k, v) -> {
+                if (timeStamp - v > 60_000 * 30) tasks.put(k, 0);
+            });
         }
         synchronized (results) {
             List<Integer> tkeys = new ArrayList<>();
@@ -88,7 +97,6 @@ public class NodeData {
         }
     }
 
-
     /**
      * 添加运行信息
      *
@@ -99,6 +107,27 @@ public class NodeData {
             results.computeIfAbsent(mark, f -> new ArrayList<PerformanceResultBean>());
             results.get(mark).add(bean);
         }
+    }
+
+    public static void addTask(String host, Integer mark) {
+        synchronized (tasks) {
+            if (status.get(host) != null && status.get(host) == false) {
+                tasks.put(host, mark);
+            }
+        }
+    }
+
+    public static List<String> getRunHost(int num) {
+        synchronized (status) {
+            List<String> available = available();
+            if (num > available.size())
+                FailException.fail("没有足够节点执行任务");
+            List<String> nods = available.subList(0, num);
+            nods.forEach(f -> status.put(f, false));
+            return nods;
+        }
+
+
     }
 
 }

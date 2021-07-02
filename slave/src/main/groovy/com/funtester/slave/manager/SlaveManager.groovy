@@ -6,10 +6,9 @@ import com.funtester.base.constaint.ThreadBase
 import com.funtester.slave.common.basedata.DcsConstant
 import com.funtester.slave.common.config.MasterApi
 import com.funtester.slave.common.config.ServerConfig
-import com.funtester.slave.util.DcsHttp
 import org.apache.commons.lang3.StringUtils
 
-class DcsManager extends DcsHttp {
+class SlaveManager extends SlaveHttp {
 
 
     static void getIP() {
