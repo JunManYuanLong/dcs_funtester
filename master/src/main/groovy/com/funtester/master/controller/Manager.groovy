@@ -38,6 +38,7 @@ class Manager {
     }
 
     @ApiOperation(value = "获取测试结果")
+    @ApiImplicitParam(name = "mark",value = "标记时间戳",dataTypeClass = Integer.class)
     @GetMapping(value = "/re/{mark}")
     public Result re(@PathVariable(value = "mark", required = true) int mark) {
         Result.success(NodeData.results.get(mark))
