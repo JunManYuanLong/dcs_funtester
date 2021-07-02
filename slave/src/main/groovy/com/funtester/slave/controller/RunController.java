@@ -2,8 +2,10 @@ package com.funtester.slave.controller;
 
 import com.funtester.base.bean.Result;
 import com.funtester.base.constaint.ThreadBase;
-import com.funtester.slave.common.bean.HttpRequest;
-import com.funtester.slave.common.bean.HttpRequest2;
+import com.funtester.slave.common.bean.run.GroovyScript;
+import com.funtester.slave.common.bean.run.HttpRequest;
+import com.funtester.slave.common.bean.run.HttpRequests;
+import com.funtester.slave.common.bean.run.LocalMethod;
 import com.funtester.slave.service.impl.IRunService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,23 +47,31 @@ public class RunController {
     @ApiImplicitParam(name = "reqsut", value = "单请求参数", dataTypeClass = HttpRequest.class)
     @PostMapping(value = "/r")
     public Result tests(@Valid @RequestBody HttpRequest request) {
-        if (!ThreadBase.needAbort()) return Result.fail();
         runService.runRequest(request);
         return Result.success();
     }
 
     @ApiOperation(value = "请求队列性能测试")
-    @ApiImplicitParam(name = "reqsuts", value = "请求队列", dataTypeClass = HttpRequest2.class)
+    @ApiImplicitParam(name = "reqsuts", value = "请求队列", dataTypeClass = HttpRequests.class)
     @PostMapping(value = "/rs")
-    public Result tests2(@Valid @RequestBody HttpRequest2 requests) {
+    public Result tests2(@Valid @RequestBody HttpRequests requests) {
         runService.runRequests(requests);
         return Result.success();
     }
 
     @ApiOperation(value = "请求自带方法性能测试")
-    @ApiImplicitParam(name = "f", value = "请求队列", dataTypeClass = HttpRequest2.class)
-    @PostMapping(value = "/post2")
-    public Result tests3(@Valid @RequestBody HttpRequest2 requests) {
+    @ApiImplicitParam(name = "method", value = "请求执行本地方法", dataTypeClass = LocalMethod.class)
+    @PostMapping(value = "/f")
+    public Result tests3(@Valid @RequestBody LocalMethod method) {
+        runService.runMethod(method);
+        return Result.success();
+    }
+
+    @ApiOperation(value = "请求自带方法性能测试")
+    @ApiImplicitParam(name = "scrpit", value = "Groovy脚本", dataTypeClass = GroovyScript.class)
+    @PostMapping(value = "/s")
+    public Result tests4(@RequestBody GroovyScript scrpit) {
+        runService.runScript(scrpit);
         return Result.success();
     }
 

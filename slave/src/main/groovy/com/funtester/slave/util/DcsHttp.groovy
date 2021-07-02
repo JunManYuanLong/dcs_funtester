@@ -11,21 +11,21 @@ class DcsHttp extends FunLibrary {
     static JSONObject getGetResponse(String url, JSONObject args) {
         def get = getHttpGet(DcsConstant.MASTER_HOST + url, args)
         get.addHeader(DcsConstant.FUNTESTER)
-        if (StringUtils.isEmpty(DcsConstant.MASTER_HOST)) return null
+        if (StringUtils.isAnyBlank(DcsConstant.MASTER_HOST, DcsConstant.LOCAL_HOST)) return null
         getHttpResponse(get)
     }
 
     static JSONObject getPostResponse(String url, JSONObject params) {
         def post = getHttpPost(DcsConstant.MASTER_HOST + url, params.toString())
         post.addHeader(DcsConstant.FUNTESTER)
-        if (StringUtils.isEmpty(DcsConstant.MASTER_HOST)) return null
+        if (StringUtils.isAnyBlank(DcsConstant.MASTER_HOST, DcsConstant.LOCAL_HOST)) return null
         getHttpResponse(post)
     }
 
     static JSONObject getPostResponse(String url, AbstractBean bean) {
         def post = getHttpPost(DcsConstant.MASTER_HOST + url, bean.toString())
         post.addHeader(DcsConstant.FUNTESTER)
-        if (StringUtils.isEmpty(DcsConstant.MASTER_HOST)) return null
+        if (StringUtils.isAnyBlank(DcsConstant.MASTER_HOST, DcsConstant.LOCAL_HOST)) return null
         getHttpResponse(post)
     }
 

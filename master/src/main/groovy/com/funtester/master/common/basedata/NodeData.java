@@ -12,7 +12,7 @@ public class NodeData {
 
     public static ConcurrentHashMap<String, Boolean> status = new ConcurrentHashMap<>();
 
-    public static ConcurrentHashMap<Integer, List<RunInfoBean>> runInfos = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, String> runInfos = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<Integer, List<PerformanceResultBean>> results = new ConcurrentHashMap<>();
 
@@ -42,32 +42,26 @@ public class NodeData {
 
     public static void check() {
         long timeStamp = Time.getTimeStamp();
+        List<String> hkeys = new ArrayList<>();
         synchronized (status) {
-            List<String> keys = new ArrayList<>();
             time.forEach((k, v) -> {
                 if (timeStamp - v > 11_000) {
-                    keys.add(k);
+                    hkeys.add(k);
                 }
             });
-            keys.forEach(f -> status.remove(f));
+            hkeys.forEach(f -> status.remove(f));
         }
         synchronized (runInfos) {
-            List<Integer> keys = new ArrayList<>();
-            runInfos.forEach((k, v) -> {
-                if (k - timeStamp > 3_3600_000) {
-                    keys.add(k);
-                }
-            });
-            keys.forEach(f -> runInfos.remove(f));
+            hkeys.forEach(f -> runInfos.remove(f));
         }
         synchronized (results) {
-            List<Integer> keys = new ArrayList<>();
+            List<Integer> tkeys = new ArrayList<>();
             results.forEach((k, v) -> {
                 if (k - timeStamp > 3_3600_000) {
-                    keys.add(k);
+                    tkeys.add(k);
                 }
             });
-            keys.forEach(f -> results.remove(f));
+            tkeys.forEach(f -> results.remove(f));
         }
     }
 
@@ -78,10 +72,22 @@ public class NodeData {
      */
     public static void addRunInfo(RunInfoBean bean) {
         synchronized (runInfos) {
-            runInfos.computeIfAbsent(bean.getMark(), f -> new ArrayList<RunInfoBean>());
-            runInfos.get(bean.getMark()).add(bean);
+            runInfos.put(bean.getHost(), bean.getRuninfo());
         }
     }
+
+    public static List<String> getRunInfo(String desc) {
+        synchronized (runInfos) {
+            ArrayList<String> infos = new ArrayList<>();
+            runInfos.forEach((k, v) -> {
+                if (v.contains(desc)) {
+                    infos.add(v);
+                }
+            });
+            return infos;
+        }
+    }
+
 
     /**
      * 添加运行信息
@@ -91,12 +97,8 @@ public class NodeData {
     public static void addResult(int mark, PerformanceResultBean bean) {
         synchronized (results) {
             results.computeIfAbsent(mark, f -> new ArrayList<PerformanceResultBean>());
-            results.get(bean.getMark()).add(bean);
+            results.get(mark).add(bean);
         }
-    }
-
-    public static String getHost(String host) {
-        return "http://" + host;
     }
 
 }

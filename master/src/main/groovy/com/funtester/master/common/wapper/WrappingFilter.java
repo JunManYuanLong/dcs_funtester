@@ -2,7 +2,6 @@ package com.funtester.master.common.wapper;
 
 
 import com.funtester.base.bean.Result;
-import com.funtester.base.constaint.ThreadBase;
 import com.funtester.config.Constant;
 import com.funtester.frame.Output;
 import com.funtester.slave.common.basedata.DcsConstant;
@@ -52,12 +51,6 @@ public class WrappingFilter implements Filter {
             if (StringUtils.isEmpty(headerKey) || !headerKey.equalsIgnoreCase(DcsConstant.HEADER_VALUE)){
                 response.getOutputStream().write(Result.fail("验证失败!").toString().getBytes());
                 return;
-            }
-            if (url.startsWith("/run/")) {
-                if (ThreadBase.needAbort()) {
-                    response.getOutputStream().write(Result.fail("正在运行其他用例").toString().getBytes());
-                    return;
-                }
             }
         }
         if (url.equalsIgnoreCase("/test/ip")) {

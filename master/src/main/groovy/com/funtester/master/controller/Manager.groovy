@@ -37,6 +37,30 @@ class Manager {
         Result.success(NodeData.available().size())
     }
 
+    @ApiOperation(value = "获取测试结果")
+    @GetMapping(value = "/re/{mark}")
+    public Result re(@PathVariable(value = "mark", required = true) int mark) {
+        Result.success(NodeData.results.get(mark))
+    }
+
+    @ApiOperation(value = "获取测试结果集")
+    @GetMapping(value = "/res")
+    public Result res() {
+        Result.success(NodeData.results)
+    }
+
+    @ApiOperation(value = "获取运行信息")
+    @GetMapping(value = "/info/{desc}")
+    public Result info(@PathVariable(value = "desc", required = true) String desc) {
+        Result.success(NodeData.getRunInfo(desc))
+    }
+
+    @ApiOperation(value = "获取运行信息集")
+    @GetMapping(value = "/infos")
+    public Result infos() {
+        Result.success(NodeData.runInfos)
+    }
+
     @ApiOperation(value = "注册接口")
     @PostMapping(value = "/register")
     public Result register(@Valid @RequestBody RegisterBean bean) {
@@ -64,7 +88,8 @@ class Manager {
     @ApiImplicitParam(name = "bean", value = "测试结果对象", dataTypeClass = PerformanceResultBean.class)
     @PostMapping(value = "/upresult/{mark}")
     public Result updateResult(@PathVariable(value = "mark") int mark, @RequestBody PerformanceResultBean bean) {
-
+        NodeData.addResult(mark, bean)
+        Result.success()
     }
 
 

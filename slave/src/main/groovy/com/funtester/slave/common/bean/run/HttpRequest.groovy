@@ -1,4 +1,4 @@
-package com.funtester.slave.common.bean
+package com.funtester.slave.common.bean.run
 
 import com.alibaba.fastjson.JSONObject
 import com.funtester.base.bean.AbstractBean
@@ -13,6 +13,9 @@ import javax.validation.constraints.NotNull
 class HttpRequest extends AbstractBean implements Serializable {
 
     private static final long serialVersionUID = 324324327948379L;
+
+    @NotNull
+    Integer mark
 
     @ApiModelProperty(value = "http请求")
     @NotNull

@@ -4,6 +4,7 @@ import com.funtester.base.bean.Result;
 import com.funtester.base.constaint.ThreadBase;
 import com.funtester.config.Constant;
 import com.funtester.slave.common.basedata.DcsConstant;
+import com.funtester.slave.manager.DcsManager;
 import com.funtester.utils.Regex;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,12 @@ public class ConfigController {
     @PostMapping(value = "/stop")
     public Result stop() {
         ThreadBase.stop();
+        return Result.success();
+    }
+
+    @GetMapping(value = "/ip")
+    public Result refreshHost() {
+        DcsManager.getIP();
         return Result.success();
     }
 

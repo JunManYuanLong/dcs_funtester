@@ -1,4 +1,4 @@
-package com.funtester.slave.common.bean
+package com.funtester.slave.common.bean.run
 
 import com.alibaba.fastjson.JSONArray
 import com.funtester.base.bean.AbstractBean
@@ -8,9 +8,12 @@ import org.hibernate.validator.constraints.Range
 
 import javax.validation.constraints.NotNull
 
-class HttpRequest2 extends AbstractBean implements Serializable {
+class HttpRequests extends AbstractBean implements Serializable {
 
-    private static final long serialVersionUID = 324324327948379L;
+    private static final long serialVersionUID = -324324327948379L;
+
+    @NotNull
+    Integer mark
 
     @ApiModelProperty(value = "http请求队列")
     @NotNull

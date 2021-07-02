@@ -21,6 +21,4 @@ public class DcsConstant {
 
     public static String LOCAL_HOST;
 
-    public static Integer TASK_MARK;
-
 }

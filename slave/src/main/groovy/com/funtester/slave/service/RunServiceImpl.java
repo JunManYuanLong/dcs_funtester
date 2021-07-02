@@ -6,10 +6,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.funtester.base.bean.PerformanceResultBean;
 import com.funtester.config.Constant;
 import com.funtester.frame.execute.Concurrent;
+import com.funtester.frame.execute.ExecuteGroovy;
+import com.funtester.frame.execute.ExecuteSource;
 import com.funtester.frame.thread.RequestThreadTimes;
 import com.funtester.httpclient.FunRequest;
-import com.funtester.slave.common.bean.HttpRequest;
-import com.funtester.slave.common.bean.HttpRequest2;
+import com.funtester.slave.common.bean.run.GroovyScript;
+import com.funtester.slave.common.bean.run.HttpRequest;
+import com.funtester.slave.common.bean.run.HttpRequests;
+import com.funtester.slave.common.bean.run.LocalMethod;
 import com.funtester.slave.manager.DcsManager;
 import com.funtester.slave.service.impl.IRunService;
 import com.funtester.slave.template.ListRequestMode;
@@ -38,13 +42,13 @@ public class RunServiceImpl implements IRunService {
             RequestThreadTimes task = new RequestThreadTimes(re, times);
             Concurrent concurrent = new Concurrent(task, thread, desc);
             PerformanceResultBean resultBean = concurrent.start();
-            DcsManager.updateResult(resultBean);
+            DcsManager.updateResult(resultBean, request.getMark());
         }
     }
 
     @Async
     @Override
-    public void runRequests(HttpRequest2 request) {
+    public void runRequests(HttpRequests request) {
         JSONArray requests = request.getRequests();
         List<HttpRequestBase> res = new ArrayList<>();
         requests.forEach(f -> {
@@ -60,8 +64,22 @@ public class RunServiceImpl implements IRunService {
             ListRequestMode task = new ListRequestMode(res, times);
             Concurrent concurrent = new Concurrent(task, thread, desc);
             PerformanceResultBean resultBean = concurrent.start();
-            DcsManager.updateResult(resultBean);
+            DcsManager.updateResult(resultBean, request.getMark());
         }
     }
+
+    @Async
+    @Override
+    public void runMethod(LocalMethod method) {
+        String methodName = method.getMethodName();
+        List<String> params = method.getParams();
+        ExecuteSource.executeMethod(methodName, params.toArray());
+    }
+
+    @Override
+    public void runScript(GroovyScript script) {
+        ExecuteGroovy.executeScript(script.getScript());
+    }
+
 
 }
