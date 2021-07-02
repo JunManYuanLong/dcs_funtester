@@ -34,6 +34,12 @@ public class ConfigController {
         return Result.success(DcsConstant.MASTER_HOST);
     }
 
+    @ApiOperation(value = "获取状态,提供master验证使用")
+    @GetMapping(value = "/s")
+    public Result nodeStatus() {
+        return Result.success(DcsConstant.MASTER_HOST);
+    }
+
     @PostMapping(value = "/stop")
     public Result stop() {
         ThreadBase.stop();

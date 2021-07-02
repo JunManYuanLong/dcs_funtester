@@ -39,7 +39,7 @@ class DcsManager extends DcsHttp {
     }
 
     static boolean updateProgress() {
-        String url = MasterApi.UPDATE_INFO +
+        String url = MasterApi.UPDATE_INFO
         def params = new JSONObject()
         params.runinfo = ThreadBase.needAbort() ? "空闲状态" : ThreadBase.progress.runInfo
         params.desc = ThreadBase.needAbort() ? DEFAULT_STRING : ThreadBase.progress.taskDesc
