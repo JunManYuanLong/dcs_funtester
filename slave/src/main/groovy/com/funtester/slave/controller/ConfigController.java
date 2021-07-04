@@ -12,6 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Api(tags = "slave测试接口")
 @RestController
 @RequestMapping(value = "/test")
@@ -21,8 +23,9 @@ public class ConfigController {
 
 
     @ApiOperation(value = "更新master节点host")
-    @PostMapping(value = "/m/{host}")
-    public Result findUsers(@PathVariable(value = "host") String host) {
+    @PostMapping(value = "/m")
+    public Result findUsers(@RequestBody Map<String,Object> param) {
+        String host = param.get("host").toString();
         if (!Regex.isMatch(host, "http://" + Constant.HOST_REGEX)) Result.fail();
         DcsConstant.MASTER_HOST = host;
         return Result.success();

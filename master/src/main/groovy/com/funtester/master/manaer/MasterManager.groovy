@@ -40,7 +40,7 @@ class MasterManager extends MasterHttp {
 
     static boolean stop(String host) {
         String url = SlaveApi.STOP;
-        def response = getGetResponse(host, url)
+        def response = getPostResponse(host, url)
         isRight(response)
     }
 

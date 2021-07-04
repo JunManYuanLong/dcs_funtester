@@ -2,9 +2,11 @@ package com.funtester.master.controller
 
 import com.funtester.base.bean.PerformanceResultBean
 import com.funtester.base.bean.Result
+import com.funtester.base.exception.FailException
 import com.funtester.master.common.basedata.NodeData
 import com.funtester.master.common.bean.manager.RegisterBean
 import com.funtester.master.common.bean.manager.RunInfoBean
+import com.funtester.master.manaer.MasterManager
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiOperation
@@ -38,7 +40,7 @@ class Manager {
     }
 
     @ApiOperation(value = "获取测试结果")
-    @ApiImplicitParam(name = "mark",value = "标记时间戳",dataTypeClass = Integer.class)
+    @ApiImplicitParam(name = "mark", value = "标记时间戳", dataTypeClass = Integer.class)
     @GetMapping(value = "/re/{mark}")
     public Result re(@PathVariable(value = "mark", required = true) int mark) {
         Result.success(NodeData.results.get(mark))
@@ -65,7 +67,11 @@ class Manager {
     @ApiOperation(value = "注册接口")
     @PostMapping(value = "/register")
     public Result register(@Valid @RequestBody RegisterBean bean) {
-        NodeData.register(bean.getUrl(), false)
+        def url = bean.getUrl()
+        def stop = MasterManager.stop(url)
+        logger.warn(stop.toString())
+        if (!stop) FailException.fail("注册失败!")
+        NodeData.register(url, false)
         Result.success()
     }
 

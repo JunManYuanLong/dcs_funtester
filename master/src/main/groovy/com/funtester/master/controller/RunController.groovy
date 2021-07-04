@@ -33,7 +33,7 @@ class RunController {
     }
 
     @ApiOperation(value = "多节点执行单请求")
-    @PostMapping(value = "/f")
+    @PostMapping(value = "/r")
     Result runR(@Valid @RequestBody HttpRequest request) {
         Result.success(runService.runRequest(request))
     }
