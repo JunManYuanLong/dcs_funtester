@@ -1,6 +1,5 @@
 package com.funtester.slave.common;
 
-import com.funtester.base.exception.FailException;
 import com.funtester.slave.manager.SlaveManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +14,7 @@ public class StartRun implements CommandLineRunner {
     @Override
     public void run(String... args) {
         SlaveManager.getIP();
-        boolean register = SlaveManager.register();
-        if (!register) FailException.fail("注册失败!");
+        SlaveManager.register();
         logger.info("程序初始化运行方法执行完毕……");
     }
 
