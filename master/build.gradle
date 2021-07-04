@@ -22,8 +22,11 @@ version = '0.1'
 sourceCompatibility = '1.8'
 
 repositories {
-    mavenCentral()
-}
+    // 本地maven仓库
+    mavenLocal()
+    maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    //和maven中央仓库一样的另一个依赖管理仓库,主要是java
+    jcenter()}
 
 dependencies {
     implementation project(':slave')
