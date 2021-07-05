@@ -4,7 +4,6 @@ import com.funtester.base.bean.PerformanceResultBean;
 import com.funtester.base.exception.FailException;
 import com.funtester.frame.SourceCode;
 import com.funtester.master.common.bean.manager.RunInfoBean;
-import com.funtester.utils.Time;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +43,11 @@ public class NodeData {
     }
 
     public static void check() {
-        int timeStamp = Time.getMark();
+        int timeStamp = SourceCode.getMark();
         List<String> hkeys = new ArrayList<>();
         synchronized (status) {
             time.forEach((k, v) -> {
-                if (timeStamp - v > 12_000) {
+                if (timeStamp - v > 12) {
                     hkeys.add(k);
                 }
             });
@@ -60,13 +59,13 @@ public class NodeData {
         synchronized (tasks) {
             hkeys.forEach(f -> tasks.remove(f));
             tasks.forEach((k, v) -> {
-                if (timeStamp - v > 60_000 * 30) tasks.put(k, 0);
+                if (timeStamp - v > 60 * 30) tasks.put(k, 0);
             });
         }
         synchronized (results) {
             List<Integer> tkeys = new ArrayList<>();
             results.forEach((k, v) -> {
-                if (k - timeStamp > 3_3600_000) {
+                if (k - timeStamp > 3_3600) {
                     tkeys.add(k);
                 }
             });
