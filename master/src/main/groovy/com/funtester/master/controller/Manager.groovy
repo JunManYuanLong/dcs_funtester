@@ -23,7 +23,7 @@ class Manager {
 
     private static final Logger logger = LogManager.getLogger(Manager.class);
 
-    @ApiOperation(value = "状态")
+    @ApiOperation(value = "节点状态")
     @GetMapping(value = "/status")
     public Result status() {
         def nodes = []
@@ -33,7 +33,7 @@ class Manager {
         Result.success(nodes)
     }
 
-    @ApiOperation(value = "可用的节点,对外")
+    @ApiOperation(value = "可用的节点数,对外")
     @GetMapping(value = "/alive")
     public Result alive() {
         Result.success(NodeData.available().size())
@@ -68,8 +68,7 @@ class Manager {
     @PostMapping(value = "/register")
     public Result register(@Valid @RequestBody RegisterBean bean) {
         def url = bean.getUrl()
-        def stop = MasterManager.stop(url)
-        logger.warn(stop.toString())
+        def stop = MasterManager.alive(url)
         if (!stop) FailException.fail("注册失败!")
         NodeData.register(url, false)
         Result.success()

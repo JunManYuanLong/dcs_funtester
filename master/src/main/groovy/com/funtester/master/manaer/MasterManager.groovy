@@ -50,4 +50,9 @@ class MasterManager extends MasterHttp {
         isRight(response) && response.getBoolean("data")
     }
 
+    static boolean alive(String host) {
+        String url = SlaveApi.ALIVE;
+        def response = getGetResponse(host, url, null)
+        isRight(response)
+    }
 }

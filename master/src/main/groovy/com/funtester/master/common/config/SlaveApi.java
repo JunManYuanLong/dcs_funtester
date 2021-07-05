@@ -16,5 +16,7 @@ public class SlaveApi {
 
     public static String STATUS = "/test/s";
 
+    public static String ALIVE = "/test/alive";
+
 
 }

@@ -24,7 +24,7 @@ public class ConfigController {
 
     @ApiOperation(value = "更新master节点host")
     @PostMapping(value = "/m")
-    public Result findUsers(@RequestBody Map<String,Object> param) {
+    public Result findUsers(@RequestBody Map<String, Object> param) {
         String host = param.get("host").toString();
         if (!Regex.isMatch(host, "http://" + Constant.HOST_REGEX)) Result.fail();
         DcsConstant.MASTER_HOST = host;
@@ -49,9 +49,16 @@ public class ConfigController {
         return Result.success();
     }
 
+    @ApiOperation(value = "刷新节点IP")
     @GetMapping(value = "/ip")
     public Result refreshHost() {
         SlaveManager.getIP();
+        return Result.success();
+    }
+
+    @ApiOperation(value = "节点状态,是否存活")
+    @GetMapping(value = "/alive")
+    public Result alive() {
         return Result.success();
     }
 
