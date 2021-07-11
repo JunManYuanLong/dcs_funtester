@@ -1,4 +1,3 @@
 rootProject.name = 'dcs_funtester'
 include 'slave'
 include 'master'
-

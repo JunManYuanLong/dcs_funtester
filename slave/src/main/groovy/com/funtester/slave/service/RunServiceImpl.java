@@ -1,19 +1,17 @@
 package com.funtester.slave.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.funtester.base.bean.PerformanceResultBean;
+import com.funtester.base.exception.FailException;
 import com.funtester.config.Constant;
 import com.funtester.frame.execute.Concurrent;
 import com.funtester.frame.execute.ExecuteGroovy;
 import com.funtester.frame.execute.ExecuteSource;
 import com.funtester.frame.thread.RequestThreadTimes;
+import com.funtester.httpclient.FunLibrary;
 import com.funtester.httpclient.FunRequest;
-import com.funtester.slave.common.bean.run.GroovyScript;
-import com.funtester.slave.common.bean.run.HttpRequest;
-import com.funtester.slave.common.bean.run.HttpRequests;
-import com.funtester.slave.common.bean.run.LocalMethod;
+import com.funtester.slave.common.bean.run.*;
 import com.funtester.slave.manager.SlaveManager;
 import com.funtester.slave.service.impl.IRunService;
 import com.funtester.slave.template.ListRequestMode;
@@ -48,8 +46,23 @@ public class RunServiceImpl implements IRunService {
 
     @Async
     @Override
+    public void runMany(ManyRequest request) {
+        FunRequest funRequest = FunRequest.initFromJson(request.toJson());
+        HttpRequestBase requestBase = funRequest.getRequest();
+        Integer times = request.getTimes();
+        try {
+            for (int i = 0; i < times; i++) {
+                FunLibrary.executeSimlple(requestBase);
+            }
+        } catch (Exception e) {
+            FailException.fail(e.getMessage());
+        }
+    }
+
+    @Async
+    @Override
     public void runRequests(HttpRequests request) {
-        JSONArray requests = request.getRequests();
+        List<BaseRequest> requests = request.getRequests();
         List<HttpRequestBase> res = new ArrayList<>();
         requests.forEach(f -> {
             res.add(FunRequest.initFromString(JSON.toJSONString(f)).getRequest());
@@ -78,6 +91,7 @@ public class RunServiceImpl implements IRunService {
 
     @Override
     public void runScript(GroovyScript script) {
+        //此处留意,以后支持传参
         ExecuteGroovy.executeScript(script.getScript());
     }
 

@@ -78,6 +78,7 @@ class Manager {
     @ApiImplicitParam(name = "bean", value = "注册接口请求对象", dataTypeClass = RegisterBean.class)
     @PostMapping(value = "/update")
     public Result update(@Valid @RequestBody RegisterBean bean) {
+        if (!NodeData.status.contains(bean.getUrl())) return Result.fail()
         NodeData.register(bean.getUrl(), bean.getStatus())
         Result.success()
     }

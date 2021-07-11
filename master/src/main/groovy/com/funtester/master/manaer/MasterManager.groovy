@@ -5,6 +5,7 @@ import com.funtester.slave.common.bean.run.GroovyScript
 import com.funtester.slave.common.bean.run.HttpRequest
 import com.funtester.slave.common.bean.run.HttpRequests
 import com.funtester.slave.common.bean.run.LocalMethod
+import com.funtester.slave.common.bean.run.ManyRequest
 
 class MasterManager extends MasterHttp {
 
@@ -29,6 +30,12 @@ class MasterManager extends MasterHttp {
     static boolean runScript(String host, GroovyScript script) {
         String url = SlaveApi.RUN_SCRIPT;
         def response = getPostResponse(host, url, script)
+        isRight(response)
+    }
+
+    static boolean runMany(String host, ManyRequest request) {
+        String url = SlaveApi.RUN_MANY;
+        def response = getPostResponse(host, url, request)
         isRight(response)
     }
 

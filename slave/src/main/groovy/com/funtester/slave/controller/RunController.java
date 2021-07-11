@@ -2,10 +2,7 @@ package com.funtester.slave.controller;
 
 import com.funtester.base.bean.Result;
 import com.funtester.base.constaint.ThreadBase;
-import com.funtester.slave.common.bean.run.GroovyScript;
-import com.funtester.slave.common.bean.run.HttpRequest;
-import com.funtester.slave.common.bean.run.HttpRequests;
-import com.funtester.slave.common.bean.run.LocalMethod;
+import com.funtester.slave.common.bean.run.*;
 import com.funtester.slave.service.impl.IRunService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,6 +45,14 @@ public class RunController {
     @PostMapping(value = "/r")
     public Result tests(@Valid @RequestBody HttpRequest request) {
         runService.runRequest(request);
+        return Result.success();
+    }
+
+    @ApiOperation(value = "请求放大器")
+    @ApiImplicitParam(name = "reqsut", value = "单请求参数", dataTypeClass = HttpRequest.class)
+    @PostMapping(value = "/r")
+    public Result tests2(@Valid @RequestBody ManyRequest request) {
+        runService.runMany(request);
         return Result.success();
     }
 

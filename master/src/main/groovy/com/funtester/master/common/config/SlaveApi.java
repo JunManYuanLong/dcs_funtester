@@ -10,6 +10,8 @@ public class SlaveApi {
 
     public static String RUN_SCRIPT = "/run/s";
 
+    public static String RUN_MANY = "/run/many";
+
     public static String PROGRESS = "/run/progress";
 
     public static String STOP = "/test/stop";

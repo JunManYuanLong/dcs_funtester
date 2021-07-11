@@ -5,10 +5,7 @@ import com.funtester.frame.SourceCode
 import com.funtester.master.common.basedata.NodeData
 import com.funtester.master.manaer.MasterManager
 import com.funtester.master.service.IRunService
-import com.funtester.slave.common.bean.run.GroovyScript
-import com.funtester.slave.common.bean.run.HttpRequest
-import com.funtester.slave.common.bean.run.HttpRequests
-import com.funtester.slave.common.bean.run.LocalMethod
+import com.funtester.slave.common.bean.run.*
 import org.springframework.stereotype.Service
 
 /**
@@ -16,6 +13,12 @@ import org.springframework.stereotype.Service
  */
 @Service
 class RunService implements IRunService {
+
+    @Override
+    void runRequest(ManyRequest request) {
+        def host = NodeData.getRunHost(1)
+        MasterManager.runMany(host, request)
+    }
 
     @Override
     int runRequest(HttpRequest request) {

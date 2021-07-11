@@ -1,13 +1,12 @@
 package com.funtester.slave.service.impl;
 
-import com.funtester.slave.common.bean.run.GroovyScript;
-import com.funtester.slave.common.bean.run.HttpRequest;
-import com.funtester.slave.common.bean.run.HttpRequests;
-import com.funtester.slave.common.bean.run.LocalMethod;
+import com.funtester.slave.common.bean.run.*;
 
 public interface IRunService {
 
     public void runRequest(HttpRequest request);
+
+    public void runMany(ManyRequest request);
 
     public void runRequests(HttpRequests request);
 
