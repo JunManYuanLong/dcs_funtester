@@ -8,9 +8,15 @@ import com.funtester.slave.common.config.MasterApi
 import com.funtester.slave.common.config.ServerConfig
 import org.apache.commons.lang3.StringUtils
 
+/**
+ * slave节点HTTP接口功能管理类
+ */
 class SlaveManager extends SlaveHttp {
 
 
+/**
+ * 向master节点发请求获取本机IP
+ */
     static void getIP() {
         if (StringUtils.isBlank(DcsConstant.MASTER_HOST)) return
         String url = MasterApi.GET_IP
@@ -20,6 +26,10 @@ class SlaveManager extends SlaveHttp {
         }
     }
 
+/**
+ * 注册slave节点
+ * @return
+ */
     static boolean register() {
         String url = MasterApi.REGISTER
         def params = new JSONObject()
@@ -28,6 +38,10 @@ class SlaveManager extends SlaveHttp {
         isRight(response)
     }
 
+/**
+ * 更新运行状态
+ * @return
+ */
     static boolean update() {
         String url = MasterApi.UPDATE
         def params = new JSONObject()
@@ -37,6 +51,10 @@ class SlaveManager extends SlaveHttp {
         isRight(response)
     }
 
+/**
+ * 更新进度
+ * @return
+ */
     static boolean updateProgress() {
         String url = MasterApi.UPDATE_INFO
         def params = new JSONObject()
@@ -47,6 +65,12 @@ class SlaveManager extends SlaveHttp {
         isRight(response)
     }
 
+/**
+ * 更新运行结果
+ * @param bean
+ * @param mark
+ * @return
+ */
     static boolean updateResult(PerformanceResultBean bean, int mark) {
         String url = MasterApi.UPDATE_RESULT + mark;
         def response = getPostResponse(url, bean)

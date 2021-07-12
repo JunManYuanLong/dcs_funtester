@@ -27,7 +27,7 @@ class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger3接口文档")
-                .description("DCS_FunTester框架slave项目")
+                .description("DCS_FunTester框架master项目")
                 .contact(new Contact("FunTester", "", "FunTester@88.com"))
                 .version("1.0")
                 .build();
