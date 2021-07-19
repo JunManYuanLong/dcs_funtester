@@ -25,15 +25,15 @@ class RunService implements IRunService {
         def num = request.getMark()
         def hosts = NodeData.getRunHost(num)
         def mark = SourceCode.getMark()
+        request.setMark(mark)
         try {
             hosts.each {
-                request.setMark(mark)
                 def re = MasterManager.runRequest(it, request)
                 if (!re) FailException.fail()
                 NodeData.addTask(it, mark)
             }
         } catch (FailException e) {
-            hosts.each { f -> MasterManager.stop(f) }
+            hosts.each {f -> MasterManager.stop(f)}
             FailException.fail("多节点执行失败!")
         }
         mark
@@ -44,15 +44,15 @@ class RunService implements IRunService {
         def mark = SourceCode.getMark()
         def num = requests.getMark()
         def hosts = NodeData.getRunHost(num)
+        requests.setMark(mark)
         try {
             hosts.each {
-                requests.setMark(mark)
                 def re = MasterManager.runRequests(it, requests)
                 if (!re) FailException.fail()
                 NodeData.addTask(it, mark)
             }
         } catch (FailException e) {
-            hosts.each { f -> MasterManager.stop(f) }
+            hosts.each {f -> MasterManager.stop(f)}
             FailException.fail("多节点执行失败!")
         }
         mark
@@ -63,15 +63,15 @@ class RunService implements IRunService {
         def mark = SourceCode.getMark()
         def num = method.getMark()
         def hosts = NodeData.getRunHost(num)
+        method.setMark(mark)
         try {
             hosts.each {
-                method.setMark(mark)
                 def re = MasterManager.runMethod(it, method)
                 if (!re) FailException.fail()
                 NodeData.addTask(it, mark)
             }
         } catch (FailException e) {
-            hosts.each { f -> MasterManager.stop(f) }
+            hosts.each {f -> MasterManager.stop(f)}
             FailException.fail("多节点执行失败!")
         }
         mark
@@ -82,15 +82,15 @@ class RunService implements IRunService {
         def mark = SourceCode.getMark()
         def num = script.getMark()
         def hosts = NodeData.getRunHost(num)
+        script.setMark(mark)
         try {
             hosts.each {
-                script.setMark(mark)
                 def re = MasterManager.runRequest(it, script)
                 if (!re) FailException.fail()
                 NodeData.addTask(it, mark)
             }
         } catch (FailException e) {
-            hosts.each { f -> MasterManager.stop(f) }
+            hosts.each {f -> MasterManager.stop(f)}
             FailException.fail("多节点执行失败!")
         }
         mark
