@@ -56,6 +56,12 @@ public class ConfigController {
         return Result.success();
     }
 
+    @ApiOperation(value = "刷新节点IP")
+    @GetMapping(value = "/register")
+    public Result register() {
+        return Result.success(SlaveManager.register());
+    }
+
     @ApiOperation(value = "节点状态,是否存活")
     @GetMapping(value = "/alive")
     public Result alive() {
