@@ -1,5 +1,6 @@
 package com.funtester.slave.common.basedata;
 
+import com.funtester.config.Constant;
 import com.funtester.config.PropertyUtils;
 import com.funtester.httpclient.FunLibrary;
 import org.apache.http.Header;
@@ -9,7 +10,7 @@ import org.apache.http.Header;
  */
 public class DcsConstant {
 
-    private static PropertyUtils.Property property = PropertyUtils.getProperties("fun");
+    private static PropertyUtils.Property property = PropertyUtils.getLocalProperties(Constant.WORK_SPACE + "fun.properties");
 
     public static final String HEADER_KEY = "funtester";
 

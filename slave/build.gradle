@@ -24,9 +24,10 @@ sourceCompatibility = '1.8'
 repositories {
     // 本地maven仓库
     mavenLocal()
-    maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven {url = 'http://maven.aliyun.com/nexus/content/groups/public/'}
     //和maven中央仓库一样的另一个依赖管理仓库,主要是java
-    jcenter()}
+    jcenter()
+}
 
 dependencies {
     implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.8'

@@ -1,7 +1,6 @@
 package com.funtester.slave.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.funtester.base.bean.PerformanceResultBean;
 import com.funtester.base.exception.FailException;
 import com.funtester.config.Constant;
@@ -28,8 +27,8 @@ public class RunServiceImpl implements IRunService {
     @Async
     @Override
     public void runRequest(HttpRequest request) {
-        JSONObject r = request.getRequest();
-        HttpRequestBase re = FunRequest.initFromJson(r).getRequest();
+        BaseRequest r = request.getRequest();
+        HttpRequestBase re = FunRequest.initFromJson(r.toJson()).getRequest();
         Integer times = request.getTimes();
         String mode = request.getMode();
         Integer thread = request.getThread();

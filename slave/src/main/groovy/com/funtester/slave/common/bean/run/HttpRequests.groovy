@@ -22,7 +22,7 @@ class HttpRequests extends AbstractBean implements Serializable {
     List<BaseRequest> requests
 
     @ApiModelProperty(value = "单线程请求次数")
-    @Range(min = 1L, max = 100L)
+    @Range(min = 1L, max = 2000L)
     Integer times
 
     @ApiModelProperty(value = "模式,内测阶段只支持ftt")

@@ -1,5 +1,6 @@
 package com.funtester.slave.common
 
+
 import com.funtester.slave.manager.SlaveManager
 import com.funtester.utils.Time
 import org.apache.logging.log4j.LogManager
@@ -20,6 +21,7 @@ class Task {
     @Scheduled(cron = "0/5 * * * * ?")
     def updateNodeInfo() {
         SlaveManager.update()
+        SlaveManager.updateProgress()
         logger.info("更新节点信息执行完毕! 时间:{}", Time.getDate())
     }
 

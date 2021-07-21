@@ -42,15 +42,15 @@ public class RunController {
 
     @ApiOperation(value = "单个请求性能测试")
     @ApiImplicitParam(name = "reqsut", value = "单请求参数", dataTypeClass = HttpRequest.class)
-    @PostMapping(value = "/r")
+    @PostMapping(value = "/request")
     public Result tests(@Valid @RequestBody HttpRequest request) {
         runService.runRequest(request);
         return Result.success();
     }
 
     @ApiOperation(value = "请求放大器")
-    @ApiImplicitParam(name = "reqsut", value = "单请求参数", dataTypeClass = HttpRequest.class)
-    @PostMapping(value = "/r")
+    @ApiImplicitParam(name = "reqsut", value = "单请求参数", dataTypeClass = ManyRequest.class)
+    @PostMapping(value = "/many")
     public Result tests2(@Valid @RequestBody ManyRequest request) {
         runService.runMany(request);
         return Result.success();
@@ -58,7 +58,7 @@ public class RunController {
 
     @ApiOperation(value = "请求队列性能测试")
     @ApiImplicitParam(name = "reqsuts", value = "请求队列", dataTypeClass = HttpRequests.class)
-    @PostMapping(value = "/rs")
+    @PostMapping(value = "/requests")
     public Result tests2(@Valid @RequestBody HttpRequests requests) {
         runService.runRequests(requests);
         return Result.success();
@@ -66,7 +66,7 @@ public class RunController {
 
     @ApiOperation(value = "请求自带方法性能测试")
     @ApiImplicitParam(name = "method", value = "请求执行本地方法", dataTypeClass = LocalMethod.class)
-    @PostMapping(value = "/f")
+    @PostMapping(value = "/method")
     public Result tests3(@Valid @RequestBody LocalMethod method) {
         runService.runMethod(method);
         return Result.success();
@@ -74,7 +74,7 @@ public class RunController {
 
     @ApiOperation(value = "请求自带方法性能测试")
     @ApiImplicitParam(name = "scrpit", value = "Groovy脚本", dataTypeClass = GroovyScript.class)
-    @PostMapping(value = "/s")
+    @PostMapping(value = "/script")
     public Result tests4(@RequestBody GroovyScript scrpit) {
         runService.runScript(scrpit);
         return Result.success();

@@ -1,6 +1,6 @@
 package com.funtester.slave.common.bean.run
 
-import com.alibaba.fastjson.JSONObject
+
 import com.funtester.base.bean.AbstractBean
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
@@ -22,7 +22,7 @@ class HttpRequest extends AbstractBean implements Serializable {
 
     @ApiModelProperty(value = "http请求")
     @NotNull
-    JSONObject request
+    BaseRequest request
 
     @ApiModelProperty(value = "单线程请求次数")
     @Range(min = 1L, max = 2000L)
