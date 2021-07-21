@@ -2,13 +2,13 @@ package com.funtester.master.common.config;
 
 public class SlaveApi {
 
-    public static String RUN_REQUEST = "/run/r";
+    public static String RUN_REQUEST = "/run/request";
 
-    public static String RUN_REQUESTS = "/run/rs";
+    public static String RUN_REQUESTS = "/run/requests";
 
-    public static String RUN_METHOD = "/run/m";
+    public static String RUN_METHOD = "/run/method";
 
-    public static String RUN_SCRIPT = "/run/s";
+    public static String RUN_SCRIPT = "/run/script";
 
     public static String RUN_MANY = "/run/many";
 

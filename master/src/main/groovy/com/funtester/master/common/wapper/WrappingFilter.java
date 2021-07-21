@@ -3,7 +3,6 @@ package com.funtester.master.common.wapper;
 
 import com.funtester.base.bean.Result;
 import com.funtester.config.Constant;
-import com.funtester.frame.Output;
 import com.funtester.slave.common.basedata.DcsConstant;
 import com.funtester.utils.DecodeEncode;
 import com.funtester.utils.Time;
@@ -62,15 +61,15 @@ public class WrappingFilter implements Filter {
         long end = Time.getTimeStamp();
         byte[] bytes = responseWrapper.getContent();
         String respContent = new String(bytes, Constant.UTF_8);
-        if (!(url.startsWith("/ws") || url.contains("swagger"))) {
-            logger.info("请求:{},耗时:{} ms,参数:{},响应:{},来源:{}", url, end - start, queryArgs, respContent, ipAddress);
-            try {
-                Output.showStr(queryArgs);
-                Output.showStr(respContent);
-            } catch (Exception e) {
-
-            }
-        }
+//        if (!(url.startsWith("/ws") || url.contains("swagger"))) {
+//            logger.info("请求:{},耗时:{} ms,参数:{},响应:{},来源:{}", url, end - start, queryArgs, respContent, ipAddress);
+//            try {
+//                Output.showStr(queryArgs);
+//                Output.showStr(respContent);
+//            } catch (Exception e) {
+//
+//            }
+//        }
         response.getOutputStream().write(respContent.getBytes(Constant.UTF_8));
     }
 

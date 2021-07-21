@@ -75,8 +75,8 @@ class MasterHttp extends FunLibrary {
 
     static boolean isRight(JSONObject response) {
         try {
-            return response.getIntValue("code") == 0
-        } catch (e) {
+            return response.getInteger("code") == 0
+        } catch (Exception e) {
             logger.warn("响应出错:{}", response.toString())
             return false
         }

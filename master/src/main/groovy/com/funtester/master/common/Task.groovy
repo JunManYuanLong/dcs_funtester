@@ -22,5 +22,10 @@ class Task {
         logger.info("清除过期节点信息定时任务执行完毕! 时间:{}", Time.getDate())
     }
 
+    @Scheduled(cron = "0/5 * * * * ?")
+    def checkNode() {
+        NodeData.checkNode()
+        logger.info("清除过期节点信息定时任务执行完毕! 时间:{}", Time.getDate())
+    }
 
 }
